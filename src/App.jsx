@@ -1,16 +1,25 @@
 import './App.css';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Login from './componentes/login/Login';
+import React, { useState } from 'react';
+import Login from './components/login/Login';
+import firebaseApp from './firebase/firebaseconfig';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import Home from './view/home/Home';
+const auth = getAuth(firebaseApp);
 
 function App() {
+	const [user, setUser] = useState(null);
+
+	onAuthStateChanged(auth, (usuarioFirebase) => {
+		if (usuarioFirebase) {
+			setUser(usuarioFirebase);
+		} else {
+			setUser(null);
+		}
+	});
 	return (
-		<div className='App'>
-			<BrowserRouter>
-				<Routes>
-					<Route path='/' element={<Login />}></Route>
-				</Routes>
-			</BrowserRouter>
-		</div>
+		<>
+			{user ? <Home/> : <Login/>}
+		</>
 	);
 }
 
