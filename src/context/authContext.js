@@ -1,25 +1,20 @@
-import { auth } from '../firebase';
-
 import { createContext, useContext } from 'react';
-import { signInWithEmailAndPassword, signOut } from 'firebase/auth';
 
 export const authContext = createContext();
 
 export const useAuth = () => {
 	const context = useContext(authContext);
-	return context;
+  if (!context) throw new Error('useAuth must be used within an AuthProvider');
+  return context;
 };
 
-export function AuthProvider({ children }) {
-	const Login = (email, password) => {
-		signInWithEmailAndPassword(auth, email, password);
-	};
 
-	const Logout = () => {
-		signOut(auth);
+export function AuthProvider({ children }) {
+	const user = {
+		login: true,
 	};
 	return (
-		<authContext.Provider value={{ Login, Logout }}>
+		<authContext.Provider value={{ user }}>
 			{children}
 		</authContext.Provider>
 	);

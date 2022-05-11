@@ -1,40 +1,20 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-import { Alert } from "./Alert";
-
-
 import '../hojas-de-estilo/Login.scss';
+import { useAuth } from "../context/AuthContext";
+
 
 export function Login() {
-	const [user, setUser] = useState({
-		email: '',
-		password: '',
-	});
 
-	const { login } = useAuth();
-	const [error, setError] = useState('');
-	const navigate = useNavigate();
 
-	const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError("");
-    try {
-      await login(user.email, user.password);
-      navigate("/");
-    } catch (error) {
-      setError(error.message);
-    }
-  };
-	const handleChange = ({ target: { value, name } }) =>
-		setUser({ ...user, [name]: value });
+	const { user } = useAuth();
+	console.log(user);
 
+
+	
 	return (
 		<div className='grid-container'>
-			{error && <Alert message={error} />}
 			<div className='div-1 box'></div>
 			<div className='div-2 box'>
-				<form onSubmit={handleSubmit}>
+				<form>
 					<div className='mb-3'>
 						<label
 							htmlFor='exampleInputEmail1'
@@ -46,9 +26,8 @@ export function Login() {
 							id='email'
 							name='email'
 							type='email'
-							onChange={handleChange}
 							className='form-control '
-							placeholder="youremail@company.tld"
+							placeholder='youremail@company.tld'
 						/>
 						<div id='emailHelp' className='form-text text-light fs-6'>
 							We'll never share your email with anyone else.
@@ -66,7 +45,6 @@ export function Login() {
 							name='password'
 							type='password'
 							className='form-control'
-							onChange={handleChange}
 						/>
 					</div>
 					<button type='submit' className='btn btn-primary'>
