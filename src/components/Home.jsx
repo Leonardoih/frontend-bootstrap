@@ -1,17 +1,14 @@
-import { useAuth } from '../context/authContext';
-import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 export const Home = () => {
-	const { Logout, user } = useAuth();
+	const { logout, user } = useAuth();
 
 	console.log(user);
 
-	const navigate = useNavigate();
 
 	const handleLogout = async () => {
 		try {
-			await Logout();
-			navigate('/login');
+			await logout();
 		} catch (error) {
 			console.error(error.message);
 		}
