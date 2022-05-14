@@ -18,16 +18,24 @@ export function Register() {
 	};
 
 	const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError("");
-    try {
-      await signup(user.email, user.password);
-      navigate("/");
-    } catch (error) {
-      setError(error.message);
-    }
-  };
-
+		e.preventDefault();
+		setError('');
+		try {
+			await signup(user.email, user.password);
+			navigate('/');
+		} catch (error) {
+			console.log(error.code);
+			if (error.code === 'auth/weak-password') {
+				setError('la Contraseña debe de ser de almenos 6 caracteres');
+			}
+			if (error.code === 'auth/invalid-email') {
+				setError('Correo no valido');
+			}
+			if (error.code === 'auth/email-already-in-use') {
+				setError('El correo ya esta en uso Ingrese otro correo');
+			}
+		}
+	};
 	return (
 		<div>
 			{error && <p>{error}</p>}
@@ -44,7 +52,7 @@ export function Register() {
 				<input
 					type='password'
 					name='password'
-					placeholder='password'
+					placeholder='**********'
 					onChange={hadleCahnge}
 				/>
 				<button>Register</button>

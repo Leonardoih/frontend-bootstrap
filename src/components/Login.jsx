@@ -1,20 +1,48 @@
 import '../hojas-de-estilo/Login.scss';
-import { useAuth } from "../context/AuthContext";
-
+import { useState } from 'react';
+import { useAuth } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 export function Login() {
+	const { signin } = useAuth();
 
+	const [user, setUser] = useState({
+		email: '',
+		password: '',
+	});
 
-	const { user } = useAuth();
-	console.log(user);
+	const navigate = useNavigate();
+	const [error, setError] = useState();
 
+	const hadleCahnge = ({ target: { name, value } }) => {
+		setUser({ ...user, [name]: value });
+	};
 
-	
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		setError('');
+		try {
+			await signin(user.email, user.password);
+			navigate('/');
+		} catch (error) {
+			console.log(error.code);
+			if (error.code === 'auth/user-not-found') {
+				setError('El Usuario No Existe');
+			}
+			if (error.code === 'auth/invalid-email') {
+				setError('Ingrese un correo valido');
+			}
+			if (error.code === 'auth/wrong-password') {
+				setError('Contraseña Incorrecta');
+			}
+		}
+	};
 	return (
 		<div className='grid-container'>
+			{error && <p>{error}</p>}
 			<div className='div-1 box'></div>
 			<div className='div-2 box'>
-				<form>
+				<form onSubmit={handleSubmit}>
 					<div className='mb-3'>
 						<label
 							htmlFor='exampleInputEmail1'
@@ -26,6 +54,7 @@ export function Login() {
 							id='email'
 							name='email'
 							type='email'
+							onChange={hadleCahnge}
 							className='form-control '
 							placeholder='youremail@company.tld'
 						/>
@@ -44,11 +73,13 @@ export function Login() {
 							id='password'
 							name='password'
 							type='password'
+							onChange={hadleCahnge}
 							className='form-control'
+							placeholder='********'
 						/>
 					</div>
 					<button type='submit' className='btn btn-primary'>
-						enviar
+						Iniciar Sesion
 					</button>
 					<label className='register-label'></label>
 				</form>
