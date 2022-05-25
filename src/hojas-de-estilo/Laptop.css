@@ -1,0 +1,35 @@
+.contenedor-boton {
+	height: 35px;
+	width: 45%;
+	display: inline-block;
+	font-weight: bold;
+	font-size: 14px;
+	border-radius: 10px;
+	border: 2px solid rgba(177, 170, 170, 0.5);
+	cursor: pointer;
+	margin: 4px;
+	user-select: none;
+}
+
+.boton-editar{
+	background-color: rgb(5, 5, 177);
+	color: white;
+}
+.boton-eliminar{
+	background-color: rgb(197, 5, 5);
+	color: white;
+}
+
+.boton-agregar{
+	font-family: Lato, Arial, Helvetica, sans-serif !important;
+	min-width: 100px;
+	min-height: 50px;
+	font-size: 18px;
+	color: rgba(3, 3, 3, 0.6);
+	font-weight: bold;
+	border: 1px solid #585e61;
+	cursor: pointer;
+	border-radius: 10px;
+	background: linear-gradient(to bottom, #05aebf, #6dd5ed);
+}
+
