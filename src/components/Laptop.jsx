@@ -1,14 +1,14 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
-import {ListadoDePortatiles} from './Interface';
+import {InventarioEquipos} from './Interface';
 import * as invService from './invService';
 import '../hojas-de-estilo/Laptop.css';
 
 const Laptop = () => {
-	const [portatil, setPortatil] = useState(ListadoDePortatiles);
+	const [portatil, setPortatil] = useState(InventarioEquipos);
 
 	const LoadPortatiles = async () => {
-		const res = await invService.getItems();
+		const res = await invService.getItemsLaptop();
 		setPortatil(res.data);
 	};
 
@@ -39,15 +39,15 @@ const Laptop = () => {
 					</tr>
 				</thead>
 				<tbody>
-					{portatil.map((ListadoDePortatiles) => {
+					{portatil.map((InventarioEquipos) => {
 						return (
-							<tr key={ListadoDePortatiles._id}>
-								<td>{ListadoDePortatiles.serial}</td>
-								<td>{ListadoDePortatiles.marca}</td>
-								<td>{ListadoDePortatiles.modelo}</td>
-								<td>{ListadoDePortatiles.estado}</td>
-								<td>{ListadoDePortatiles.usuario}</td>
-								<td>{ListadoDePortatiles.analista}</td>
+							<tr key={InventarioEquipos._id}>
+								<td>{InventarioEquipos.serial}</td>
+								<td>{InventarioEquipos.marca}</td>
+								<td>{InventarioEquipos.modelo}</td>
+								<td>{InventarioEquipos.estado}</td>
+								<td>{InventarioEquipos.usuario}</td>
+								<td>{InventarioEquipos.analista}</td>
 								<td className='contenedor-td'>
 									<button className='contenedor-boton boton-editar'>
 										Editar

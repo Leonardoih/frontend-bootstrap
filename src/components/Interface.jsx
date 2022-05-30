@@ -1,6 +1,6 @@
 
 
-export const ListadoDePortatiles = [{
+export const InventarioEquipos = [{
 	marca: "",
 	serial: "",
 	modelo: "",
@@ -8,3 +8,4 @@ export const ListadoDePortatiles = [{
 	usuario: "",
 	analista: "",
 }];
+
